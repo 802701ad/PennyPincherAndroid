@@ -9,18 +9,17 @@ using Android.OS;
 
 namespace PennyPincher
 {
-    [Activity(Label = "PennyPincher - Accounts List", MainLauncher = true, Icon = "@drawable/icon")]
-    public class ActivityMain : Activity
+    [Activity(Label = "PennyPincher - Fund List", MainLauncher = true, Icon = "@drawable/icon")]
+    public class ActivityFundList : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.Main);
+            SetContentView(Resource.Layout.Funds);
 
             FindViewById<Button>(Resource.Id.btnAdd).Click += btnAdd_Click;
-            FindViewById<Button>(Resource.Id.btnFunds).Click += btnFunds_Click;
             hScroll = FindViewById<HorizontalScrollView>(Resource.Id.hScroll);
             Refresh();
         }
@@ -31,37 +30,31 @@ namespace PennyPincher
         {
             hScroll.RemoveAllViews();
             var t = new TableLayout(this);
-            foreach (Account a in Db.getAccounts())
+            foreach (Fund a in Db.getFunds())
             {
                 var tr = new TableRow(this);
                 var b = new Button(this);
-                b.Text = a.account_name;
-                b.Tag = a.account_id;
-                b.Click += Account_Click;
+                b.Text = a.fund_name;
+                b.Tag = a.fund_id;
+                b.Click += Item_Click;
                 tr.AddView(b);
                 t.AddView(tr);
             }
             hScroll.AddView(t);
         }
 
-        public void btnFunds_Click(object sender, EventArgs e)
-        {
-            var i = new Intent(this, typeof(ActivityFundList));
-            StartActivity(i);
-        }
-
         public void btnAdd_Click(object sender, EventArgs e)
         {
-            var i = new Intent(this, typeof(ActivityAccountEdit));
-            i.PutExtra("account_id", "");
+            var i = new Intent(this, typeof(ActivityFundEdit));
+            i.PutExtra("fund_id", "");
             StartActivityForResult(i,0);
         }
 
-        public void Account_Click(object sender, EventArgs e)
+        public void Item_Click(object sender, EventArgs e)
         {
-            var i = new Intent(this, typeof(ActivityAccountEdit));
-            i.PutExtra("account_id", Convert.ToString((sender as Button).Tag));
-            StartActivityForResult(i,0);
+            var i = new Intent(this, typeof(ActivityFundEdit));
+            i.PutExtra("fund_id", Convert.ToString((sender as Button).Tag));
+            StartActivity(i);
         }
 
         protected override void OnResume()
@@ -69,11 +62,7 @@ namespace PennyPincher
             base.OnResume();
             Refresh();
         }
-        protected void OnActivityResult(int RequestCode, int ResultCode, Intent intent)
-        {
-            //This whole method doesn't work for some reason.
-            //Refresh();
-        }
+      
     }
 }
 

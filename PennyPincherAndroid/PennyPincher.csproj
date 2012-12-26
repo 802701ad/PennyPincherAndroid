@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="ActivityAccountEdit.cs" />
     <Compile Include="ActivityMain.cs" />
+    <Compile Include="ActivityFundEdit.cs" />
+    <Compile Include="ActivityFundList.cs" />
     <Compile Include="Db\Models.cs" />
     <Compile Include="Db\db.cs" />
     <Compile Include="Db\QueryFormatter.cs" />
@@ -68,6 +70,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\Funds.axml" />
+    <AndroidResource Include="Resources\Layout\FundEdit.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Main.axml" />

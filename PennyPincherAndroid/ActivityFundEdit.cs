@@ -12,23 +12,23 @@ using Android.Widget;
 
 namespace PennyPincher
 {
-    [Activity(Label = "PennyPincher - Manage Accounts")]
-    public class ActivityAccountEdit : Activity
+    [Activity(Label = "PennyPincher - Manage Funds")]
+    public class ActivityFundEdit : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            SetContentView(Resource.Layout.AccountEdit);
+            SetContentView(Resource.Layout.FundEdit);
 
             // Get our button from the layout resource,
             // and attach an event to it
             FindViewById<Button>(Resource.Id.btnSave).Click += btnSave_Click;
             FindViewById<Button>(Resource.Id.btnDelete).Click += btnDelete_Click;
 
-            if (Intent.GetStringExtra("account_id") != "")
+            if (Intent.GetStringExtra("fund_id") != "")
             {
-                FindViewById<EditText>(Resource.Id.txtAccountName).Text = Db.getAccount(Intent.GetStringExtra("account_id")).account_name;
+                FindViewById<EditText>(Resource.Id.txtFundName).Text = Db.getFund(Intent.GetStringExtra("fund_id")).fund_name;
                 FindViewById<Button>(Resource.Id.btnDelete).Visibility = ViewStates.Visible;
             }
 
@@ -37,17 +37,17 @@ namespace PennyPincher
 
         public void btnSave_Click(object sender, EventArgs e)
         {
-            var a = new Account();
-            a.account_id = Intent.GetStringExtra("account_id");
-            a.account_name = FindViewById<EditText>(Resource.Id.txtAccountName).Text;
-            if (a.account_id == "")
+            var a = new Fund();
+            a.fund_id = Intent.GetStringExtra("fund_id");
+            a.fund_name = FindViewById<EditText>(Resource.Id.txtFundName).Text;
+            if (a.fund_id == "")
             {
-                a.account_id = Guid.NewGuid().ToString();
-                Db.AddAccount(a);
+                a.fund_id = Guid.NewGuid().ToString();
+                Db.AddFund(a);
             }
             else
             {
-                Db.UpdateAccount(a);
+                Db.UpdateFund(a);
             }
            
             SetResult(Result.Ok);
@@ -57,7 +57,7 @@ namespace PennyPincher
         public void btnDelete_Click(object sender, EventArgs e)
         {
 
-            Db.DeleteAccount(Intent.GetStringExtra("account_id"));
+            Db.DeleteFund(Intent.GetStringExtra("fund_id"));
             SetResult(Result.Ok);
             Finish();
         }

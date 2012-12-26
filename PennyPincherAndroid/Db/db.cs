@@ -43,7 +43,14 @@ namespace PennyPincher
             getConnection();
             db.Update(a);
         }
+
+        public static void DeleteAccount(string account_id)
+        {
+            getConnection();
+            db.Delete<Account>(account_id);
+        }
         #endregion
+
         #region Fund
         public static List<Fund> getFunds()
         {
@@ -68,6 +75,12 @@ namespace PennyPincher
         {
             getConnection();
             db.Update(a);
+        }
+
+        public static void DeleteFund(string fund_id)
+        {
+            getConnection();
+            db.Delete<Fund>(fund_id);
         }
         #endregion
     }

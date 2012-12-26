@@ -12,7 +12,7 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtAccountName" />
+        android:id="@+id/txtFundName" />
     <Button
         android:text="Save"
         android:layout_width="fill_parent"
