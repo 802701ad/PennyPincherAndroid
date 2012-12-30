@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace PennyPincher
 {
-    [Activity(Label = "PennyPincher - Manage Funds")]
+    [Activity(Label = "PennyPincher - Manage Funds", MainLauncher=false)]
     public class ActivityFundEdit : Activity
     {
         protected override void OnCreate(Bundle bundle)

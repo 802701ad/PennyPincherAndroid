@@ -59,7 +59,7 @@ namespace PennyPincher
 
         public void Account_Click(object sender, EventArgs e)
         {
-            var i = new Intent(this, typeof(ActivityAccountEdit));
+            var i = new Intent(this, typeof(ActivityTransactions));
             i.PutExtra("account_id", Convert.ToString((sender as Button).Tag));
             StartActivityForResult(i,0);
         }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 using SQLite;
 using System.IO;
+using System;
 
 namespace PennyPincher
 {
@@ -16,6 +17,9 @@ namespace PennyPincher
                 db = new SQLiteConnection(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "PennyPincher.sqlite"));
                 db.CreateTable<Account>();
                 db.CreateTable<Fund>();
+                db.CreateTable<TransactionMain>();
+                db.CreateTable<TransactionDetail>();
+                var m = db.TableMappings;
             }
         }
         #region Accounts
@@ -24,6 +28,7 @@ namespace PennyPincher
             getConnection();
             return db.Query<Account>("select * from ACCOUNT order by account_name");
         }
+
 
         public static Account getAccount(string account_id)
         {
@@ -83,5 +88,74 @@ namespace PennyPincher
             db.Delete<Fund>(fund_id);
         }
         #endregion
+
+        #region Transaction
+        public static List<TransactionMain> getTransactions(string account_id, string start, string end)
+        {
+            getConnection();
+            string qry = @"select * from TransactionMain where account_id=? and transaction_date between ? and ? order by transaction_date desc";
+            DateTime s;
+            DateTime e;
+            if (start == "")
+                s = DateTime.Now.AddYears(-5);
+            else
+                s=DateTime.Parse(start);
+            if (end == "")
+                e = DateTime.Now.AddYears(5);
+            else
+                e = DateTime.Parse(end);
+            return db.Query<TransactionMain>(qry, account_id, s, e);
+        }
+
+        public static TransactionMain getTransaction(string transaction_id)
+        {
+            getConnection();
+            var a = db.Query<TransactionMain>("select * from TransactionMain where transaction_id=?", transaction_id);
+            if (a.Count == 0) return null; else return a[0];
+        }
+
+        public static List<TransactionDetail> getTransactionDetails(string transaction_id)
+        {
+            getConnection();
+            return db.Query<TransactionDetail>("select * from TransactionDetail where transaction_id=?", transaction_id);
+        }
+
+        internal static void DeleteTransaction(string transaction_id)
+        {
+            getConnection();
+            db.BeginTransaction();
+            db.Execute("delete from TransactionDetail where transaction_id=?", transaction_id);
+            db.Execute("delete from TransactionMain where transaction_id=?", transaction_id);
+            db.Commit();
+        }
+
+        public static void AddTransaction(TransactionMain a)
+        {
+            getConnection();
+            db.Insert(a);
+        }
+
+        public static void UpdateTransaction(TransactionMain a)
+        {
+            getConnection();
+            db.Update(a);
+        }
+        public static void AddTransactionDetails(List<TransactionDetail> a)
+        {
+            getConnection();
+            db.BeginTransaction();
+            if(a.Count>0)
+                db.Execute("delete from TransactionDetail where transaction_id=?", a[0].transaction_id);
+            foreach (TransactionDetail d in a)
+            {
+                db.Insert(d);
+            }
+            db.Commit();
+        }
+        
+        #endregion
+
+       
+
     }
 }

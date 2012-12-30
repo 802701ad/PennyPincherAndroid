@@ -54,6 +54,9 @@
     <Compile Include="ActivityMain.cs" />
     <Compile Include="ActivityFundEdit.cs" />
     <Compile Include="ActivityFundList.cs" />
+    <Compile Include="ActivityTransactionEdit.cs" />
+    <Compile Include="ActivityTransactions.cs" />
+    <Compile Include="Db\Misc.cs" />
     <Compile Include="Db\Models.cs" />
     <Compile Include="Db\db.cs" />
     <Compile Include="Db\QueryFormatter.cs" />
@@ -71,6 +74,12 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\Funds.axml" />
     <AndroidResource Include="Resources\Layout\FundEdit.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\Transactions.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\TransactionEdit.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
