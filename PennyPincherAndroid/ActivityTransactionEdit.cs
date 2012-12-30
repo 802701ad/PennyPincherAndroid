@@ -32,6 +32,7 @@ namespace PennyPincher
                 throw new Exception("cannot create or edit a transaction without an account");
             //create amount inputs
             var t = new TableLayout(this);
+            t.StretchAllColumns = true;
             foreach (Fund f in Db.getFunds())
             {
                 var tr = new TableRow(this);

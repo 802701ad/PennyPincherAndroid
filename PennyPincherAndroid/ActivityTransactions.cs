@@ -25,6 +25,8 @@ namespace PennyPincher
             hScroll = FindViewById<HorizontalScrollView>(Resource.Id.hScroll);
             txtFromDate = FindViewById<EditText>(Resource.Id.txtFromDate);
             txtToDate = FindViewById<EditText>(Resource.Id.txtToDate);
+            txtFromDate.Text = DateTime.Now.AddMonths(-1).ToShortDateString();
+            txtToDate.Text = DateTime.Now.AddYears(1).ToShortDateString();
             account_id = Intent.GetStringExtra("account_id");
             {
                 var lblAccountInfo = FindViewById<TextView>(Resource.Id.lblAccountInfo);
@@ -42,7 +44,7 @@ namespace PennyPincher
             hScroll.RemoveAllViews();
             var t = new TableLayout(this);
             t.StretchAllColumns = true;
-            foreach (TransactionMain a in Db.getTransactions(account_id, txtFromDate.Text, txtFromDate.Text))
+            foreach (TransactionMain a in Db.getTransactions(account_id, txtFromDate.Text, txtToDate.Text))
             {
                 var tr = new TableRow(this);
                 {
@@ -50,6 +52,7 @@ namespace PennyPincher
                     b.Text = a.transaction_title;
                     b.Tag = a.transaction_id;
                     b.Click += Transaction_Click;
+                    b.Gravity = GravityFlags.DisplayClipHorizontal;
                     tr.AddView(b);
                 }
                 {
@@ -57,6 +60,7 @@ namespace PennyPincher
                     b.Text = a.transaction_date.ToShortDateString();
                     b.Tag = a.transaction_id;
                     b.Click += Transaction_Click;
+                    b.Gravity = GravityFlags.CenterHorizontal;
                     tr.AddView(b);
                 }
                 {
@@ -64,6 +68,7 @@ namespace PennyPincher
                     b.Text = String.Format("{0:C}", a.amount);
                     b.Tag = a.transaction_id;
                     b.Click += Transaction_Click;
+                    b.Gravity = GravityFlags.Right;
                     tr.AddView(b);
                 }
                 t.AddView(tr);
