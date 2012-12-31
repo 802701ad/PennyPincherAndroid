@@ -17,7 +17,6 @@ using Android.Widget;
         {
             s = s.Replace(",", "");
             s = s.Replace("$", "");
-
             Decimal d;
             if (Decimal.TryParse(s, out d))
             {
@@ -25,5 +24,22 @@ using Android.Widget;
             }
             else return 0;
 
+        }
+
+        public static Decimal ValSum(string s)
+        {
+            StringBuilder b = new StringBuilder(s);
+            b.Replace(":", ";");
+            b.Replace("-", ";-");
+            b.Replace("=", ";");
+            b.Replace("\r", ";");
+            b.Replace("\n", ";");
+            var items = b.ToString().Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            decimal sum = 0;
+            for (var i = 0; i < items.Length; i++)
+            {
+                sum += Val(items[i].Trim());
+            }
+            return sum;
         }
     }

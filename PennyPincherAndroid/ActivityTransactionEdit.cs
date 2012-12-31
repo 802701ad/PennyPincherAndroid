@@ -25,6 +25,8 @@ namespace PennyPincher
             txtTransactionDate = FindViewById<EditText>(Resource.Id.txtTransactionDate);
             txtComments = FindViewById<EditText>(Resource.Id.txtComments);
             chkIsActive = FindViewById<CheckBox>(Resource.Id.chkIsActive);
+            txtTotal = FindViewById<TextView>(Resource.Id.txtTotal);
+
             FindViewById<Button>(Resource.Id.btnSave).Click += btnSave_Click;
             FindViewById<Button>(Resource.Id.btnDelete).Click += btnDelete_Click;
             transaction_id = Intent.GetStringExtra("transaction_id");
@@ -40,6 +42,7 @@ namespace PennyPincher
                 lbl.Text = f.fund_name;
                 var txt = new EditText(this);
                 amounts.Add(txt);
+                txt.AfterTextChanged += Amount_Change;
                 txt.Tag = f.fund_id;
                 tr.AddView(lbl);
                 tr.AddView(txt);
@@ -83,7 +86,7 @@ namespace PennyPincher
         protected EditText txtComments;
         protected CheckBox chkIsActive;
         protected List<EditText> amounts=new List<EditText>();
-
+        protected TextView txtTotal;
         public void btnSave_Click(object sender, EventArgs e)
         {
             var a = new TransactionMain();
@@ -103,7 +106,7 @@ namespace PennyPincher
                     td.account_id = account_id;
                     td.fund_id = Convert.ToString(et.Tag);
                     td.comment = et.Text;
-                    td.amount = Misc.Val(et.Text);
+                    td.amount = Misc.ValSum(et.Text);
                     a.amount += td.amount;
                     l.Add(td);
                 }
@@ -129,6 +132,16 @@ namespace PennyPincher
             Db.DeleteTransaction(transaction_id);
             SetResult(Result.Ok);
             Finish();
+        }
+        
+        public void Amount_Change(object sender, EventArgs e)
+        {
+            decimal sum = 0;
+            foreach (EditText et in amounts)
+            {
+                sum+= Misc.ValSum(et.Text);
+            }
+            txtTotal.Text = String.Format("{0:C}", sum);
         }
     }
 }

@@ -47,6 +47,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/hScroll" />
+    <TextView
+        android:text="- - -"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTotal" />
     <Button
         android:text="Save"
         android:layout_width="fill_parent"
