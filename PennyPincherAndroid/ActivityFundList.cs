@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace PennyPincher
 {
-    [Activity(Label = "PennyPincher - Fund List", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "PennyPincher - Fund List", MainLauncher = false, Icon = "@drawable/icon")]
     public class ActivityFundList : Activity
     {
         protected override void OnCreate(Bundle bundle)

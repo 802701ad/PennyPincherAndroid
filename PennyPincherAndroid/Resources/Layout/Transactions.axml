@@ -32,6 +32,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/tableLayout1"
         android:stretchColumns="1">
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/linearLayout1" />
         <TableRow
             android:id="@+id/tableRow1">
             <TextView

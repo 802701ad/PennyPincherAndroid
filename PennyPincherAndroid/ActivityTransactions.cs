@@ -28,11 +28,6 @@ namespace PennyPincher
             txtFromDate.Text = DateTime.Now.AddMonths(-1).ToShortDateString();
             txtToDate.Text = DateTime.Now.AddYears(1).ToShortDateString();
             account_id = Intent.GetStringExtra("account_id");
-            {
-                var lblAccountInfo = FindViewById<TextView>(Resource.Id.lblAccountInfo);
-                lblAccountInfo.Text = Db.getAccount(account_id).account_name;
-                lblAccountInfo.Click += Account_Click;
-            }
         }
 
         protected EditText txtFromDate;
@@ -42,6 +37,7 @@ namespace PennyPincher
         public void Refresh()
         {
             hScroll.RemoveAllViews();
+            FindViewById<LinearLayout>(Resource.Id.linearLayout1).RemoveAllViews();
             var t = new TableLayout(this);
             t.StretchAllColumns = true;
             foreach (TransactionMain a in Db.getTransactions(account_id, txtFromDate.Text, txtToDate.Text))
@@ -57,7 +53,7 @@ namespace PennyPincher
                 }
                 {
                     var b = new TextView(this);
-                    b.Text = a.transaction_date.ToShortDateString();
+                    b.Text = a.transaction_date.ToString("MMM d");
                     b.Tag = a.transaction_id;
                     b.Click += Transaction_Click;
                     b.Gravity = GravityFlags.CenterHorizontal;
@@ -73,7 +69,15 @@ namespace PennyPincher
                 }
                 t.AddView(tr);
             }
-            hScroll.AddView(t);
+            FindViewById<LinearLayout>(Resource.Id.linearLayout1).AddView(t);
+
+            {
+                var lblAccountInfo = FindViewById<TextView>(Resource.Id.lblAccountInfo);
+                lblAccountInfo.Text = Db.getAccount(account_id).account_name;
+                lblAccountInfo.Click += Account_Click;
+            }
+
+            //hScroll.AddView(t);
         }
 
         public void btnFunds_Click(object sender, EventArgs e)

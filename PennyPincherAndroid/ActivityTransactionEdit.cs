@@ -87,12 +87,27 @@ namespace PennyPincher
         public void btnSave_Click(object sender, EventArgs e)
         {
             var a = new TransactionMain();
+            var l = new List<TransactionDetail>();
             a.transaction_id = transaction_id;
             a.transaction_comment = txtComments.Text;
-            a.transaction_date = txtTransactionDate.Text==""?DateTime.Now:Convert.ToDateTime(txtTransactionDate.Text);
+            a.transaction_date = txtTransactionDate.Text == "" ? DateTime.Now : Convert.ToDateTime(txtTransactionDate.Text);
             a.transaction_title = txtTitle.Text;
             a.account_id = account_id;
+            a.amount = 0;
             a.is_active = chkIsActive.Checked ? "1" : "0";
+            {//gather transaction details, so we'll have the amount on the main transaction record, we'll save the details afteward
+                foreach (EditText et in amounts)
+                {
+                    var td = new TransactionDetail();
+                    td.transaction_id = transaction_id;
+                    td.account_id = account_id;
+                    td.fund_id = Convert.ToString(et.Tag);
+                    td.comment = et.Text;
+                    td.amount = Misc.Val(et.Text);
+                    a.amount += td.amount;
+                    l.Add(td);
+                }
+            }
             if (a.transaction_id == "")
             {
                 a.transaction_id = Guid.NewGuid().ToString();
@@ -102,17 +117,6 @@ namespace PennyPincher
             else
             {
                 Db.UpdateTransaction(a);
-            }
-            var l = new List<TransactionDetail>();
-            foreach (EditText et in amounts)
-            {
-                var td = new TransactionDetail();
-                td.transaction_id = transaction_id;
-                td.account_id = account_id;
-                td.fund_id = Convert.ToString(et.Tag);
-                td.comment = et.Text;
-                td.amount = Misc.Val(et.Text);
-                l.Add(td);
             }
             Db.AddTransactionDetails(l);
             SetResult(Result.Ok);

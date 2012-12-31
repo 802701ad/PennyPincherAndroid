@@ -37,6 +37,9 @@ namespace PennyPincher
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
 			
+			// aapt resource value: 0x7f020001
+			public const int penny = 2130837505;
+			
 			private Drawable()
 			{
 			}
@@ -75,26 +78,29 @@ namespace PennyPincher
 			// aapt resource value: 0x7f05000a
 			public const int lblTransactionDate = 2131034122;
 			
+			// aapt resource value: 0x7f050012
+			public const int linearLayout1 = 2131034130;
+			
 			// aapt resource value: 0x7f050011
 			public const int tableLayout1 = 2131034129;
 			
-			// aapt resource value: 0x7f050012
-			public const int tableRow1 = 2131034130;
+			// aapt resource value: 0x7f050013
+			public const int tableRow1 = 2131034131;
 			
-			// aapt resource value: 0x7f050015
-			public const int tableRow2 = 2131034133;
+			// aapt resource value: 0x7f050016
+			public const int tableRow2 = 2131034134;
 			
-			// aapt resource value: 0x7f050018
-			public const int tableRow3 = 2131034136;
+			// aapt resource value: 0x7f050019
+			public const int tableRow3 = 2131034137;
 			
 			// aapt resource value: 0x7f050008
 			public const int textView1 = 2131034120;
 			
-			// aapt resource value: 0x7f050013
-			public const int textView10 = 2131034131;
+			// aapt resource value: 0x7f050014
+			public const int textView10 = 2131034132;
 			
-			// aapt resource value: 0x7f050016
-			public const int textView11 = 2131034134;
+			// aapt resource value: 0x7f050017
+			public const int textView11 = 2131034135;
 			
 			// aapt resource value: 0x7f050000
 			public const int textView2 = 2131034112;
@@ -105,8 +111,8 @@ namespace PennyPincher
 			// aapt resource value: 0x7f05000d
 			public const int txtComments = 2131034125;
 			
-			// aapt resource value: 0x7f050014
-			public const int txtFromDate = 2131034132;
+			// aapt resource value: 0x7f050015
+			public const int txtFromDate = 2131034133;
 			
 			// aapt resource value: 0x7f050004
 			public const int txtFundName = 2131034116;
@@ -114,8 +120,8 @@ namespace PennyPincher
 			// aapt resource value: 0x7f050009
 			public const int txtTitle = 2131034121;
 			
-			// aapt resource value: 0x7f050017
-			public const int txtToDate = 2131034135;
+			// aapt resource value: 0x7f050018
+			public const int txtToDate = 2131034136;
 			
 			// aapt resource value: 0x7f05000b
 			public const int txtTransactionDate = 2131034123;
