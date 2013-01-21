@@ -13,8 +13,9 @@ using Android.Widget;
 
     class Misc
     {
-        public static Decimal Val(string s)
+        public static Decimal Val(object x)
         {
+            string s = Convert.ToString(x);
             s = s.Replace(",", "");
             s = s.Replace("$", "");
             Decimal d;

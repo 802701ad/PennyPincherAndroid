@@ -26,9 +26,9 @@ namespace PennyPincher
             txtComments = FindViewById<EditText>(Resource.Id.txtComments);
             chkIsActive = FindViewById<CheckBox>(Resource.Id.chkIsActive);
             txtTotal = FindViewById<TextView>(Resource.Id.txtTotal);
+            txtComments.SetMinWidth(WindowManager.DefaultDisplay.Width);
 
             FindViewById<Button>(Resource.Id.btnSave).Click += btnSave_Click;
-            FindViewById<Button>(Resource.Id.btnDelete).Click += btnDelete_Click;
             transaction_id = Intent.GetStringExtra("transaction_id");
             if (Convert.ToString(Intent.GetStringExtra("account_id")) == "")
                 throw new Exception("cannot create or edit a transaction without an account");
@@ -102,7 +102,6 @@ namespace PennyPincher
                 foreach (EditText et in amounts)
                 {
                     var td = new TransactionDetail();
-                    td.transaction_id = transaction_id;
                     td.account_id = account_id;
                     td.fund_id = Convert.ToString(et.Tag);
                     td.comment = et.Text;
@@ -115,23 +114,37 @@ namespace PennyPincher
             {
                 a.transaction_id = Guid.NewGuid().ToString();
                 transaction_id = a.transaction_id;
+
                 Db.AddTransaction(a);
             }
             else
             {
                 Db.UpdateTransaction(a);
             }
+            foreach (var li in l)
+                li.transaction_id = transaction_id;
             Db.AddTransactionDetails(l);
             SetResult(Result.Ok);
             Finish();
         }
 
-        public void btnDelete_Click(object sender, EventArgs e)
+        public void Delete()
         {
+            using(var b=new AlertDialog.Builder(this))
+            {
+                b.SetIcon(Android.Resource.Drawable.IcDialogAlert);
+                b.SetTitle("Confirm");
+                b.SetMessage("Do you really want to delete?");
+                b.SetPositiveButton("OK", delegate {
+                    Db.DeleteTransaction(transaction_id);
+                    SetResult(Result.Ok);
+                    Finish();
+                });
+                b.SetNegativeButton("Cancel", delegate {});
+                b.Show();
+            }
 
-            Db.DeleteTransaction(transaction_id);
-            SetResult(Result.Ok);
-            Finish();
+
         }
         
         public void Amount_Change(object sender, EventArgs e)
@@ -143,5 +156,23 @@ namespace PennyPincher
             }
             txtTotal.Text = String.Format("{0:C}", sum);
         }
+
+        const int mnuDelete = 1;
+        const int mnuDuplicate = 2;
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            menu.Add(0, mnuDelete, 0, "Delete");
+            menu.Add(0, mnuDuplicate, 0, "Duplicate");
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == mnuDelete)
+                Delete();
+            return true;
+        }
+
     }
 }

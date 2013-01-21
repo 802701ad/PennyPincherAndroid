@@ -22,6 +22,8 @@ namespace PennyPincher
             SetContentView(Resource.Layout.Transactions);
 
             FindViewById<Button>(Resource.Id.btnAdd).Click += btnAdd_Click;
+            FindViewById<Button>(Resource.Id.btnFunds).Click += btnFunds_Click;
+            
             hScroll = FindViewById<HorizontalScrollView>(Resource.Id.hScroll);
             txtFromDate = FindViewById<EditText>(Resource.Id.txtFromDate);
             txtToDate = FindViewById<EditText>(Resource.Id.txtToDate);
@@ -38,6 +40,7 @@ namespace PennyPincher
         {
             hScroll.RemoveAllViews();
             FindViewById<LinearLayout>(Resource.Id.linearLayout1).RemoveAllViews();
+            FindViewById<TextView>(Resource.Id.tvAccountTotal).Text=String.Format("{0:C}", Db.getAccountTotal(account_id));
             var t = new TableLayout(this);
             t.StretchAllColumns = true;
             foreach (TransactionMain a in Db.getTransactions(account_id, txtFromDate.Text, txtToDate.Text))
@@ -82,8 +85,9 @@ namespace PennyPincher
 
         public void btnFunds_Click(object sender, EventArgs e)
         {
-            //var i = new Intent(this, typeof(ActivityFundList));
-            //StartActivity(i);
+            var i = new Intent(this, typeof(ActivityFundTotalsInAccount));
+            i.PutExtra("account_id", account_id);
+            StartActivity(i);
         }
 
         public void btnAdd_Click(object sender, EventArgs e)

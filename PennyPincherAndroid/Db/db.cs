@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SQLite;
 using System.IO;
 using System;
+using System.Linq;
 
 namespace PennyPincher
 {
@@ -155,7 +156,36 @@ namespace PennyPincher
         
         #endregion
 
-       
 
+
+
+        internal static decimal getFundTotal(string account_id, string fund_id)
+        {
+            getConnection();
+            var s = from f in db.Table<TransactionDetail>() where f.account_id == account_id && f.fund_id == fund_id select f.amount;
+            return s.Sum();
+            //var v = db.Query<TransactionDetail>("select * from TransactionDetail where account_id=? and fund_id=?", account_id, fund_id);
+            //decimal result = 0;
+            //foreach (var a in v)
+            //    result += a.amount;
+            //return result;
+        }
+
+        internal static decimal getAccountTotal(string account_id)
+        {
+            getConnection();
+            var s = from f in db.Table<TransactionMain>() where f.account_id == account_id select f.amount;
+            return s.Sum();
+            //var v = db.Query<TransactionDetail>("select * from TransactionDetail where account_id=? and fund_id=?", account_id, fund_id);
+            //decimal result = 0;
+            //foreach (var a in v)
+            //    result += a.amount;
+            //return result;
+        }
+    }
+
+    public class NumTable
+    {
+        public decimal amount;
     }
 }
