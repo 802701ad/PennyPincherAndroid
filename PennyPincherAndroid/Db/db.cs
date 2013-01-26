@@ -94,7 +94,7 @@ namespace PennyPincher
         public static List<TransactionMain> getTransactions(string account_id, string start, string end)
         {
             getConnection();
-            string qry = @"select * from TransactionMain where account_id=? and transaction_date between ? and ? order by transaction_date desc";
+            string qry = @"select * from TransactionMain where account_id=? and transaction_date between ? and ? order by transaction_date desc limit 100";
             DateTime s;
             DateTime e;
             if (start == "")
@@ -162,7 +162,9 @@ namespace PennyPincher
         internal static decimal getFundTotal(string account_id, string fund_id)
         {
             getConnection();
-            var s = from f in db.Table<TransactionDetail>() where f.account_id == account_id && f.fund_id == fund_id select f.amount;
+            var s = from f in db.Table<TransactionDetail>()
+                    where f.account_id == account_id && f.fund_id == fund_id
+                    select f.amount;
             return s.Sum();
             //var v = db.Query<TransactionDetail>("select * from TransactionDetail where account_id=? and fund_id=?", account_id, fund_id);
             //decimal result = 0;
@@ -174,13 +176,29 @@ namespace PennyPincher
         internal static decimal getAccountTotal(string account_id)
         {
             getConnection();
-            var s = from f in db.Table<TransactionMain>() where f.account_id == account_id select f.amount;
+            var s = from f in db.Table<TransactionMain>()
+                    where f.account_id == account_id && f.is_active=="1"
+                    select f.amount;
             return s.Sum();
             //var v = db.Query<TransactionDetail>("select * from TransactionDetail where account_id=? and fund_id=?", account_id, fund_id);
             //decimal result = 0;
             //foreach (var a in v)
             //    result += a.amount;
             //return result;
+        }
+
+        internal static decimal getTransactionDetailAmount(string transaction_id, string fund_id)
+        {
+            getConnection();
+            var s = from d in db.Table<TransactionDetail>()
+                    where d.transaction_id == transaction_id
+                    && d.fund_id==fund_id
+                    select d;
+
+            decimal result = 0;
+            foreach (var a in s)
+                result += a.amount;
+            return result;
         }
     }
 

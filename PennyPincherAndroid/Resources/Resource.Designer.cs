@@ -54,8 +54,8 @@ namespace PennyPincher
 			// aapt resource value: 0x7f050003
 			public const int btnDelete = 2131034115;
 			
-			// aapt resource value: 0x7f050008
-			public const int btnFunds = 2131034120;
+			// aapt resource value: 0x7f050007
+			public const int btnFunds = 2131034119;
 			
 			// aapt resource value: 0x7f050002
 			public const int btnSave = 2131034114;
@@ -84,8 +84,8 @@ namespace PennyPincher
 			// aapt resource value: 0x7f050012
 			public const int linearLayout2 = 2131034130;
 			
-			// aapt resource value: 0x7f050007
-			public const int scrollview = 2131034119;
+			// aapt resource value: 0x7f050008
+			public const int scrollview = 2131034120;
 			
 			// aapt resource value: 0x7f050015
 			public const int tableLayout1 = 2131034133;
@@ -156,10 +156,10 @@ namespace PennyPincher
 			public const int Funds = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int FundTotalsInAccount = 2130903043;
+			public const int Main = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int Main = 2130903044;
+			public const int TotalsReport = 2130903044;
 			
 			// aapt resource value: 0x7f030005
 			public const int TransactionEdit = 2130903045;

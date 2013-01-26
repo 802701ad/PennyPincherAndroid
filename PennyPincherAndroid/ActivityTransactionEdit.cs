@@ -105,8 +105,9 @@ namespace PennyPincher
                     td.account_id = account_id;
                     td.fund_id = Convert.ToString(et.Tag);
                     td.comment = et.Text;
-                    td.amount = Misc.ValSum(et.Text);
-                    a.amount += td.amount;
+                    var s = Misc.ValSum(et.Text);
+                    td.amount = a.is_active == "1" ? s : 0;
+                    a.amount += s;
                     l.Add(td);
                 }
             }
