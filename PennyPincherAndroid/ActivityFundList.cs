@@ -62,7 +62,13 @@ namespace PennyPincher
             base.OnResume();
             Refresh();
         }
-      
+
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            menu.Add(0, 1, 0, System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal)));
+            return true;
+        }
     }
 }
 

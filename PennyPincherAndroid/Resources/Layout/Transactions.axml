@@ -34,7 +34,7 @@
             android:id="@+id/tvAccountTotal"
             android:gravity="right" />
     </LinearLayout>
-    <HorizontalScrollView
+    <ScrollView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="fill_parent"

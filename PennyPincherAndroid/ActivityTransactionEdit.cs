@@ -172,6 +172,8 @@ namespace PennyPincher
         {
             if (item.ItemId == mnuDelete)
                 Delete();
+            if (item.ItemId == mnuDuplicate)
+                transaction_id = "";
             return true;
         }
 

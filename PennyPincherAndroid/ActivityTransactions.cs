@@ -24,7 +24,7 @@ namespace PennyPincher
             FindViewById<Button>(Resource.Id.btnAdd).Click += btnAdd_Click;
             FindViewById<Button>(Resource.Id.btnFunds).Click += btnFunds_Click;
             
-            hScroll = FindViewById<HorizontalScrollView>(Resource.Id.hScroll);
+            hScroll = FindViewById<ScrollView>(Resource.Id.hScroll);
             txtFromDate = FindViewById<EditText>(Resource.Id.txtFromDate);
             txtToDate = FindViewById<EditText>(Resource.Id.txtToDate);
             txtFromDate.Text = DateTime.Now.AddMonths(-1).ToShortDateString();
@@ -35,7 +35,7 @@ namespace PennyPincher
         protected EditText txtFromDate;
         protected EditText txtToDate;
         protected string account_id;
-        public HorizontalScrollView hScroll;
+        public ScrollView hScroll;
         public void Refresh()
         {
             hScroll.RemoveAllViews();
