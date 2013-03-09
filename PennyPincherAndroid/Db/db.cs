@@ -15,7 +15,13 @@ namespace PennyPincher
         {
             if (db == null)
             {
-                db = new SQLiteConnection(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "PennyPincher.sqlite"));
+                string path = "";
+                path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "PennyPincher.sqlite");
+                path = Android.OS.Environment.ExternalStorageDirectory + "/PennyPincher/";
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                path = Path.Combine(path, "db.sqlite");                
+                db = new SQLiteConnection(path);
                 db.CreateTable<Account>();
                 db.CreateTable<Fund>();
                 db.CreateTable<TransactionMain>();

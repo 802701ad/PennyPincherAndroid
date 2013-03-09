@@ -25,25 +25,33 @@ namespace PennyPincher
             FindViewById<Button>(Resource.Id.btnFunds).Click += btnFunds_Click;
             
             hScroll = FindViewById<ScrollView>(Resource.Id.hScroll);
-            txtFromDate = FindViewById<EditText>(Resource.Id.txtFromDate);
-            txtToDate = FindViewById<EditText>(Resource.Id.txtToDate);
-            txtFromDate.Text = DateTime.Now.AddMonths(-1).ToShortDateString();
-            txtToDate.Text = DateTime.Now.AddYears(1).ToShortDateString();
+			holder = FindViewById<LinearLayout>(Resource.Id.hldr);
+            dpFromDate = FindViewById<DatePicker>(Resource.Id.dpFromDate);
+            dpToDate = FindViewById<DatePicker>(Resource.Id.dpToDate);
+            var From=DateTime.Now.AddMonths(-1);
+            dpFromDate.UpdateDate(From.Year, From.Month, From.Day);
+            var To=DateTime.Now.AddYears(1);
+            dpToDate.UpdateDate(To.Year, To.Month, To.Day);
             account_id = Intent.GetStringExtra("account_id");
         }
 
-        protected EditText txtFromDate;
-        protected EditText txtToDate;
+        protected DatePicker dpFromDate;
+        protected DatePicker dpToDate;
         protected string account_id;
         public ScrollView hScroll;
+		public LinearLayout holder;
         public void Refresh()
         {
-            hScroll.RemoveAllViews();
-            FindViewById<LinearLayout>(Resource.Id.linearLayout1).RemoveAllViews();
+			holder.RemoveAllViews();
+            //FindViewById<LinearLayout>(Resource.Id.linearLayout1).RemoveAllViews();
             FindViewById<TextView>(Resource.Id.tvAccountTotal).Text=String.Format("{0:C}", Db.getAccountTotal(account_id));
             var t = new TableLayout(this);
             t.StretchAllColumns = true;
-            foreach (TransactionMain a in Db.getTransactions(account_id, txtFromDate.Text, txtToDate.Text))
+
+            var From=dpFromDate.Month + "/" + dpFromDate.DayOfMonth + "/" + dpFromDate.Year;
+            var To=dpToDate.Month + "/" + dpToDate.DayOfMonth + "/" + dpToDate.Year;
+			Android.Util.Log.Info("Transaction Count:",Db.getTransactions (account_id, From, To).Count.ToString() + " - " + From+"~"+To);
+			foreach (TransactionMain a in Db.getTransactions(account_id, From, To))
             {
                 var tr = new TableRow(this);
                 {
@@ -72,7 +80,7 @@ namespace PennyPincher
                 }
                 t.AddView(tr);
             }
-            FindViewById<LinearLayout>(Resource.Id.linearLayout1).AddView(t);
+			holder.AddView(t);
 
             {
                 var lblAccountInfo = FindViewById<TextView>(Resource.Id.lblAccountInfo);

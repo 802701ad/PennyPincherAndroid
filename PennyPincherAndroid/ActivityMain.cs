@@ -21,12 +21,12 @@ namespace PennyPincher
 
             FindViewById<Button>(Resource.Id.btnAdd).Click += btnAdd_Click;
             FindViewById<Button>(Resource.Id.btnFunds).Click += btnFunds_Click;
-            hScroll = FindViewById<HorizontalScrollView>(Resource.Id.hScroll);
+            hScroll = FindViewById<ScrollView>(Resource.Id.hScroll);
             Refresh();
         }
 
 
-        public HorizontalScrollView hScroll;
+        public ScrollView hScroll;
         public void Refresh()
         {
             hScroll.RemoveAllViews();

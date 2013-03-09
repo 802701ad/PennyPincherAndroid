@@ -33,6 +33,8 @@ namespace PennyPincher
                 if (amount != 0)
                 {
                     var tr = new TableRow(this);
+                    tr.Tag = m.transaction_id;
+                    tr.Click += Transaction_Click;
                     var td = new TextView(this);
                     td.Text = m.transaction_title;
                     tr.AddView(td);
@@ -50,6 +52,14 @@ namespace PennyPincher
                 }
             }
             scrollview.AddView(t);
+        }
+
+        public void Transaction_Click(object sender, EventArgs e)
+        {
+            var i = new Intent(this, typeof(ActivityTransactionEdit));
+            i.PutExtra("transaction_id", Convert.ToString((sender as View).Tag));
+            i.PutExtra("account_id", account_id);
+            StartActivityForResult(i, 0);
         }
 
     }
