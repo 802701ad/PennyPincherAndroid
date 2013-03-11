@@ -13,7 +13,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtTitle" />
-    <HorizontalScrollView
+    <ScrollView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="fill_parent"
@@ -54,23 +54,25 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/chkIsActive"
                 android:checked="true" />
-            <HorizontalScrollView
+            <LinearLayout
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:layout_width="fill_parent"
+                android:orientation="vertical"
                 android:layout_height="wrap_content"
                 android:id="@+id/hScroll" />
+            <TextView
+              android:text="- - -"
+              android:textAppearance="?android:attr/textAppearanceMedium"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/txtTotal" />
+            <Button
+              android:text="Save"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/btnSave" />
         </LinearLayout>
-    </HorizontalScrollView>
-    <TextView
-        android:text="- - -"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtTotal" />
-    <Button
-        android:text="Save"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnSave" />
+    </ScrollView>
+
 </LinearLayout>

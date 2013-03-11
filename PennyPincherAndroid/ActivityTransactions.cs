@@ -23,7 +23,8 @@ namespace PennyPincher
 
             FindViewById<Button>(Resource.Id.btnAdd).Click += btnAdd_Click;
             FindViewById<Button>(Resource.Id.btnFunds).Click += btnFunds_Click;
-            
+            FindViewById<Button>(Resource.Id.btnRefresh).Click += btnRefresh_Click;
+
             hScroll = FindViewById<ScrollView>(Resource.Id.hScroll);
 			holder = FindViewById<LinearLayout>(Resource.Id.hldr);
             dpFromDate = FindViewById<DatePicker>(Resource.Id.dpFromDate);
@@ -43,7 +44,6 @@ namespace PennyPincher
         public void Refresh()
         {
 			holder.RemoveAllViews();
-            //FindViewById<LinearLayout>(Resource.Id.linearLayout1).RemoveAllViews();
             FindViewById<TextView>(Resource.Id.tvAccountTotal).Text=String.Format("{0:C}", Db.getAccountTotal(account_id));
             var t = new TableLayout(this);
             t.StretchAllColumns = true;
@@ -88,7 +88,11 @@ namespace PennyPincher
                 lblAccountInfo.Click += Account_Click;
             }
 
-            //hScroll.AddView(t);
+        }
+
+        public void btnRefresh_Click(object sender, EventArgs e)
+        {
+            Refresh();
         }
 
         public void btnFunds_Click(object sender, EventArgs e)

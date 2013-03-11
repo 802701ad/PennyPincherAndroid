@@ -62,6 +62,9 @@ namespace PennyPincher
 			// aapt resource value: 0x7f050007
 			public const int btnFunds = 2131034119;
 			
+			// aapt resource value: 0x7f05001a
+			public const int btnRefresh = 2131034138;
+			
 			// aapt resource value: 0x7f050002
 			public const int btnSave = 2131034114;
 			

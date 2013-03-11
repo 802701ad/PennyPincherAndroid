@@ -20,9 +20,10 @@ namespace PennyPincher
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.TransactionEdit);
-            hScroll = FindViewById<HorizontalScrollView>(Resource.Id.hScroll);
+            hScroll = FindViewById<LinearLayout>(Resource.Id.hScroll);
             txtTitle = FindViewById<EditText>(Resource.Id.txtTitle);
             txtTransactionDate = FindViewById<EditText>(Resource.Id.txtTransactionDate);
+            txtTransactionDate.Click+=txtTransactionDate_Click;
             txtComments = FindViewById<EditText>(Resource.Id.txtComments);
             chkIsActive = FindViewById<CheckBox>(Resource.Id.chkIsActive);
             txtTotal = FindViewById<TextView>(Resource.Id.txtTotal);
@@ -41,6 +42,7 @@ namespace PennyPincher
                 var lbl = new TextView(this);
                 lbl.Text = f.fund_name;
                 var txt = new EditText(this);
+                txt.SetMinWidth(50);
                 amounts.Add(txt);
                 txt.AfterTextChanged += Amount_Change;
                 txt.Tag = f.fund_id;
@@ -80,7 +82,7 @@ namespace PennyPincher
         }
         protected string transaction_id;
         protected string account_id;
-        protected HorizontalScrollView hScroll;
+        protected LinearLayout hScroll;
         protected EditText txtTitle;
         protected EditText txtTransactionDate;
         protected EditText txtComments;
@@ -175,6 +177,24 @@ namespace PennyPincher
             if (item.ItemId == mnuDuplicate)
                 transaction_id = "";
             return true;
+        }
+
+        public void txtTransactionDate_Click(object sender, EventArgs e)
+        {
+            ShowDialog(0);
+        }
+
+        protected override Dialog OnCreateDialog(int id)
+        {
+            var _date=DateTime.Now;
+            DateTime.TryParse(txtTransactionDate.Text, out _date);
+            return new DatePickerDialog(this, HandleDateSet, _date.Year, _date.Month - 1, _date.Day);
+        }
+
+        void HandleDateSet(object sender, DatePickerDialog.DateSetEventArgs e)
+        {
+            var _date = e.Date;
+            txtTransactionDate.Text = _date.ToString("d");
         }
 
     }

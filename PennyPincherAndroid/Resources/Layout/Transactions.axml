@@ -47,26 +47,31 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/hldr" />
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="From:"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/textView10" />
-                <DatePicker
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/dpFromDate" />
-              <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="To:"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/textView11" />
-                <DatePicker
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/dpToDate" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="From:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/textView10" />
+            <DatePicker
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dpFromDate" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="To:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/textView11" />
+            <DatePicker
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dpToDate" />
+            <Button
+                android:text="Update List"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnRefresh" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
