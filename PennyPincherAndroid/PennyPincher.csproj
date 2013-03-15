@@ -61,6 +61,7 @@
     <Compile Include="ActivityTransactionEdit.cs" />
     <Compile Include="ActivityTransactions.cs" />
     <Compile Include="ActivityFundActivityInAccount.cs" />
+    <Compile Include="ActivityFundTotalsAllAccounts.cs" />
     <Compile Include="Db\Misc.cs" />
     <Compile Include="Db\Models.cs" />
     <Compile Include="Db\db.cs" />
@@ -85,7 +86,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\TransactionEdit.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\TotalsReport.axml">
       <SubType>AndroidResource</SubType>

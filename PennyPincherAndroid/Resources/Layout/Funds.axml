@@ -8,10 +8,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnAdd" />
-    <HorizontalScrollView
+  <ScrollView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/hScroll" />
+  <Button
+      android:text="Fund Totals for All Accounts"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/btnFundTotalsAllAccounts" />
 </LinearLayout>

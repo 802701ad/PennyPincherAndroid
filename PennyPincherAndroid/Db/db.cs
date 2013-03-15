@@ -179,6 +179,15 @@ namespace PennyPincher
             //return result;
         }
 
+        internal static decimal getFundTotal(string fund_id)
+        {
+            getConnection();
+            var s = from f in db.Table<TransactionDetail>()
+                    where f.fund_id == fund_id
+                    select f.amount;
+            return s.Sum();
+        }
+
         internal static decimal getAccountTotal(string account_id)
         {
             getConnection();

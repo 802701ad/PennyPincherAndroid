@@ -20,12 +20,14 @@ namespace PennyPincher
             SetContentView(Resource.Layout.Funds);
 
             FindViewById<Button>(Resource.Id.btnAdd).Click += btnAdd_Click;
-            hScroll = FindViewById<HorizontalScrollView>(Resource.Id.hScroll);
+            FindViewById<Button>(Resource.Id.btnFundTotalsAllAccounts).Click += btnViewTotals_Click;
+            
+            hScroll = FindViewById<ScrollView>(Resource.Id.hScroll);
             Refresh();
         }
 
 
-        public HorizontalScrollView hScroll;
+        public ScrollView hScroll;
         public void Refresh()
         {
             hScroll.RemoveAllViews();
@@ -48,6 +50,12 @@ namespace PennyPincher
             var i = new Intent(this, typeof(ActivityFundEdit));
             i.PutExtra("fund_id", "");
             StartActivityForResult(i,0);
+        }
+
+        public void btnViewTotals_Click(object sender, EventArgs e)
+        {
+            var i = new Intent(this, typeof(ActivityFundTotalsAllAccounts));
+            StartActivityForResult(i, 0);
         }
 
         public void Item_Click(object sender, EventArgs e)
